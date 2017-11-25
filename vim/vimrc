@@ -1,0 +1,134 @@
+
+
+runtime autoload/pathogen.vim
+call pathogen#infect()
+
+
+" We use a vim
+set nocompatible
+syntax on
+
+set incsearch   
+set backspace=2 
+set ruler
+set tw=0
+set showcmd	
+set showmatch " show matching brackets 
+set cspc=4 " cscope - # directory components shown
+set nocsverb  "don't be noisy about adding cscope databases
+set nu
+set vb t_vb= "turn off that darn beep
+
+set hls
+
+set ts=4
+set sw=4
+set et
+
+
+
+" Next/Previus buffer
+map <F3> :bp<CR>
+map <F4> :bn<CR>
+
+
+" Quickfix 
+map <F5> :cp<CR>
+map <F6> :cc<CR>
+map <F7> :cn<CR>
+
+" Quickfix w/ task list
+map <C-F5> :lp<CR>
+map <C-F6> :lc<CR>
+map <C-F7> :lne<CR>
+
+map <F8> :make<CR> 
+map <C-F8> :call UpdateCscope()<CR>
+map <silent> <F12> :BufExplorer<CR>
+map <M-F11> :NERDTree<CR>
+
+
+if version >= 600
+    "Change directory when buffer is entered. 
+    autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif 
+endif
+
+
+filetype plugin on
+
+
+" Automatic code folding 
+"autocmd BufReadPost *.cpp,*.h,*.c,*.cc,*.java set fdm=syntax 
+
+"
+" AUTO-COMMANDS
+" for plain text
+"autocmd BufEnter *.txt,pico.* set noet nocindent tw=76
+"autocmd BufNewFile,BufRead *.doxygen setfiletype doxygen
+"autocmd BufEnter ?akefile* set noet
+"autocmd BufEnter *.cpp,*.h,*.c,*.cc,*.java set et sm cindent cinoptions=j1,(0 comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:#,:%,:XCOMM,n:>,fb:- formatoptions=croql,nowrap
+"autocmd BufEnter *.css set autoindent smartindent
+"autocmd BufEnter *.xml,*.xsd,*.html,*.htm set ts=2 sw=2 autoindent
+"autocmd BufEnter *.cpp,*.h,*.c,*.cc,*.java,*.html,*.htm*.xml,*.xsl,*.xslt,cvs* set tw=76
+"autocmd BufEnter *.db set tw=76 et ts=4
+
+
+set wildmenu
+
+" New in version 7.0.3 - color columns 
+if version > 702 
+set colorcolumn=+1
+endif
+
+set textwidth=80
+
+set wildignore+=*.o,*.ko,*.a,*.so
+set bg=dark
+
+" CTRL+movement keys switch windows 
+map <C-H> <C-W>h
+map <C-J> <C-W>j
+map <C-K> <C-W>k
+map <C-L> <C-W>l
+
+inoremap jk <ESC>
+
+let OmniCpp_ShowScopeInAbbr = 1
+let OmniCpp_ShowPrototypeInAbbr = 1
+"let OmniCpp_DefaultNamespaces = [std]
+"
+"Omnicpp complete - auto close preview window
+autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+
+let Tlist_Ctags_Cmd="/usr/bin/ctags"
+
+noremap  <leader>ev :vsplit $MYVIMRC<cr>
+noremap  <leader>sv :source $MYVIMRC<cr>
+
+
+"quote/bracket/paaren word 
+nnoremap ," viw<esc>a"<esc>hbi"<esc>lel
+nnoremap ,( viw<esc>a)<esc>hbi(<esc>lel
+nnoremap ,[ viw<esc>a]<esc>hbi[<esc>lel
+vnoremap ," <esc>`>a"<esc>`<i"<esc>
+vnoremap ,( <esc>`>a)<esc>`<i(<esc>
+vnoremap ,[ <esc>`>a]<esc>`<i[<esc>
+
+noremap ,nt :NERDTreeToggle<CR>
+noremap ,tl :TlistToggle<CR>
+
+autocmd FileType javascript nnoremap <buffer> <localleader>c I//
+autocmd FileType c nnoremap <buffer> <localleader>c I//
+autocmd FileType c++ nnoremap <buffer> <localleader>c I//
+autocmd FileType python     nnoremap <buffer> <localleader>c I#<esc>
+
+
+autocmd FileType javascript :iabbrev <buffer> iff if ( ) {}<left><left><left><left><left>
+autocmd FileType c :iabbrev <buffer> iff if ( ) {}<left><left><left><left><left>
+autocmd FileType c++ :iabbrev <buffer> iff if ( ) {}<left><left><left><left><left>
+autocmd FileType python     :iabbrev <buffer> iff if:<right>
+
+
+
+
