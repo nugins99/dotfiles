@@ -7,3 +7,16 @@ $if mode=vi
     set keymap vi-insert
     "jk": vi-movement-mode
 $endif
+
+"\e\C-m": '\C-a "$(\C-e)"\C-a'
+
+"\ez": 'cd -\015'
+"\ez": 'iecho "hello'
+
+
+Control-w: '\e^i $(\e$i)\e^i'
+
+
+# TODO - read and understand more of what I can do here. 
+# https://www.reddit.com/r/commandline/comments/e6l5l/short_guide_to_custom_bashreadline_key_bindings/
+
