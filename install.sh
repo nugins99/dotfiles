@@ -1,9 +1,25 @@
+#!/bin/bash 
 
+P="$( cd "$(dirname "$0")" ; pwd -P )"
+echo $P
+
+# Update modules 
 git submodule update --init --recursive 
 
-pushd  vim/bundle/YouCompleteMe
-./install.py --clang-completer
+# build clang
+pushd  $P/vim/bundle/YouCompleteMe
+    ./install.py --clang-completer
 popd
 
-ln -sf inputrc ~/.inputrc
-ln -sf vim ~/.vim
+# backup existing files
+if [ -f ~/.inputrc ] ; then 
+    mv  ~/.inputrc  ~/.inputrc.dotfiles-backup
+fi
+
+if [ -f ~/.vim ] ; then 
+    mv  ~/.vim ~/.vim.dotfiles-backup
+fi
+
+# create links
+ln -sf $P/inputrc ~/.inputrc
+ln -sf $P/vim ~/.vim
