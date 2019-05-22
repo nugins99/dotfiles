@@ -16,3 +16,6 @@
 [submodule "vim/bundle/YCM-Generator"]
 	path = vim/bundle/YCM-Generator
 	url = https://github.com/rdnetto/YCM-Generator.git
+[submodule "vim/tmux-themepack"]
+	path = tmux-themepack
+	url = https://github.com/jimeh/tmux-themepack.git

@@ -23,3 +23,5 @@ fi
 # create links
 ln -sf $P/inputrc ~/.inputrc
 ln -sf $P/vim ~/.vim
+ln -sf $P/tmux.conf ~/.tmux.conf
+ln -sf $P/ideavimrc ~/.ideavimrc

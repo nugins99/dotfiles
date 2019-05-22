@@ -45,6 +45,7 @@ map <C-F7> :lne<CR>
 map <F8> :make<CR> 
 map <C-F8> :call UpdateCscope()<CR>
 map <silent> <F12> :BufExplorer<CR>
+noremap <leader>be :BufExplorer<CR>
 map <M-F11> :NERDTree<CR>
 
 
@@ -53,12 +54,10 @@ if version >= 600
     autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif 
 endif
 
-
 filetype plugin on
 
-
 " Automatic code folding 
-"autocmd BufReadPost *.cpp,*.h,*.c,*.cc,*.java set fdm=syntax 
+autocmd BufReadPost *.hpp,*.hh,*.cpp,*.h,*.c,*.cc,*.java set fdm=syntax 
 
 "
 " AUTO-COMMANDS
@@ -93,13 +92,8 @@ map <C-L> <C-W>l
 
 inoremap jk <ESC>
 
-let OmniCpp_ShowScopeInAbbr = 1
-let OmniCpp_ShowPrototypeInAbbr = 1
-"let OmniCpp_DefaultNamespaces = [std]
-"
-"Omnicpp complete - auto close preview window
-autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
-autocmd InsertLeave * if pumvisible() == 0|pclose|endif
+"autocmd CursorMovedI * if pumvisible() == 0|pclose|endif
+"autocmd InsertLeave * if pumvisible() == 0|pclose|endif
 
 let Tlist_Ctags_Cmd="/usr/bin/ctags"
 
@@ -130,5 +124,20 @@ autocmd FileType c++ :iabbrev <buffer> iff if ( ) {}<left><left><left><left><lef
 autocmd FileType python     :iabbrev <buffer> iff if:<right>
 
 
+" async complete {{{
+
+" Tab completion
+inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+
+" Force refresh completion
+imap <c-space> <Plug>(asyncomplete_force_refresh)
+
+"let g:asyncomplete_auto_popup = 0
+let g:asyncomplete_remove_duplicates = 1
+
+" }}}
 
 
+"set makeprg=make\ -C\ ~/Documents/dev/sdrw/build 
