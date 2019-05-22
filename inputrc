@@ -1,4 +1,9 @@
-set editing-mode vi 
+set editing-mode vi
+
+set show-mode-in-prompt on
+#set vi-ins-mode-string "+"
+#set vi-cmd-mode-string ":"
+
 set keymap vi-command
 
 set show-all-if-ambiguous on
@@ -6,46 +11,59 @@ set show-all-if-ambiguous on
 # Ignore case
 set completion-ignore-case on
 
-# on menu-complete, first display the common prefix, then cycle through the 
+# on menu-complete, first display the common prefix, then cycle through the
 # options when hitting TAB
 menu-complete-display-prefix on
 
 
 
 $if mode=vi
+
+    #======================================================================
     set keymap vi-command
-    "jk": vi-insertion-mode
+
+    "gg": beginning-of-history
+    "G": end-of-history
 
     # Insert the arguments from the last command
-    "p": "i !!*\r"
+    "\C-P": "i !!*"
+    "\C-p": "a $(!!)"
 
+    #======================================================================
     set keymap vi-insert
     "jk": vi-movement-mode
 
-    #cycle thru completions.
-    "\e/": menu-complete
+    # Insert the arguments from the last command
+    "\C-b": "!!*"
+    "\C-p": "$(!!)"
 
-    # wrap previous command in $() and edit beginning of line 
-    "\C-w": '\e-I $(\eA)\eI'
 
-    # Edit options before rerunning previous command, eg: ls a b c -> ls -al a b c
-    "\C-o": "\e-0eli "
+
 
     # Needed because binding 'p' in command mode above wipes its insert mode
-    # # function, too. This fixes that, and will insert 'p' when you type 'p'.
-    "p": self-insert
+    # function, too. This fixes that, and will insert 'p' when you type 'p'.
+    #"p": self-insert
+    #"r": self-insert
 
-    # vim tyle history search
-    "\e[A": history-search-backward
-    "\e[B": history-search-forward
+#
+#    #cycle thru completions.
+#    "\e/": menu-complete
+#
+#    # wrap previous command in $() and edit beginning of line
+#    "\C-w": '\e-I $(\eA)\eI'
+#
+#    # Edit options before rerunning previous command, eg: ls a b c -> ls -al a b c
+#    "\C-o": "\e-0eli "
+#
+#
+#    # vim style history search
+#    "\e[A": history-search-backward
+#    "\e[B": history-search-forward
 $endif
 
 # return to previous directory
-"\ez": 'cd -\015'
+#"\ez": 'cd -\015'
 
 
-
-
-# TODO - read and understand more of what I can do here. 
+# TODO - read and understand more of what I can do here.
 # https://www.reddit.com/r/commandline/comments/e6l5l/short_guide_to_custom_bashreadline_key_bindings/
-
