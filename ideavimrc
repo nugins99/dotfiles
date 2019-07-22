@@ -10,6 +10,7 @@ set scrolloff=3
 set ignorecase smartcase
 set showmode
 set history=100
+set rnu
 
 " Vim-surround emulation
 set surround 
@@ -60,6 +61,28 @@ nnoremap <c-s-tab> gT
 nnoremap <c-tab> gt
 
 " }}}
+ noremap <leader>ba :action BuildAll<CR>
+ noremap <leader>bp :action BuildProject<CR>
+
+noremap <leader>ga :action GotoAction<CR>
+noremap <leader>gs :action GotoSymbol<cr>
+noremap <leader>gc :action GotoClasses<cr>
+noremap <leader>gf :action GotoFiles<cr>
+
+nnoremap <leader>rr :action RenameElement<cr>
+nnoremap <leader>t :action FileStructurePopup<cr>
+nnoremap <leader>u :action FindUsages<cr>
+
+" built-in navigation to navigated items works better
+nnoremap <c-o> :action Back<cr>
+nnoremap <c-i> :action Forward<cr>
+" but preserve ideavim defaults
+nnoremap g<c-o> <c-o>
+nnoremap g<c-i> <c-i>
+
+nnoremap gd :action GotoDeclaration
+nnoremap <leader>= :action ReformatCode<CR>
+nnoremap <C-CR> :action ShowIntentionActions<CR>
 
 
 " Other Ideas {{{
@@ -74,8 +97,6 @@ nnoremap <c-tab> gt
 "nnoremap <space>e :action SearchEverywhere<cr>
 "nnoremap <space>E :action Switcher<cr>
 "nnoremap <space>t :action FileStructurePopup<cr>
-"nnoremap <space>T :action GotoSymbol<cr>
-"nnoremap <space>a :action GotoAction<cr>
 "nnoremap <space>b :action ToggleLineBreakpoint<cr>
 
 " code navigation
@@ -90,9 +111,6 @@ nnoremap <c-tab> gt
 "nnoremap \D :action Debug<cr>
 "nnoremap \c :action CheckStyleCurrentFileAction<cr>
 
-" code refactoring
-"nnoremap <space>rr :action RenameElement<cr>
-
 " unimpaired mappings
 "nnoremap [<space> O<esc>j
 "nnoremap ]<space> o<esc>k
@@ -104,12 +122,6 @@ nnoremap <c-tab> gt
 "nnoremap ]c :action VcsShowNextChangeMarker<cr>
 
 
-" built-in navigation to navigated items works better
-"nnoremap <c-o> :action Back<cr>
-"nnoremap <c-i> :action Forward<cr>
-" but preserve ideavim defaults
-"nnoremap g<c-o> <c-o>
-"nnoremap g<c-i> <c-i>
 
 " built in search looks better
 "nnoremap / :action Find<cr>
