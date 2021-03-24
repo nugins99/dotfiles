@@ -100,6 +100,8 @@ let Tlist_Ctags_Cmd="/usr/bin/ctags"
 noremap  <leader>ev :vsplit $MYVIMRC<cr>
 noremap  <leader>sv :source $MYVIMRC<cr>
 
+set tags=./tags
+
 
 "quote/bracket/paaren word 
 nnoremap ," viw<esc>a"<esc>hbi"<esc>lel
