@@ -1,6 +1,3 @@
-[submodule "vim/bundle/YouCompleteMe"]
-	path = vim/pack/plugins/start/YouCompleteMe
-	url = https://github.com/Valloric/YouCompleteMe.git
 [submodule "vim/bundle/bufexplorer"]
 	path = vim/pack/plugins/start/bufexplorer
 	url = https://github.com/jlanzarotta/bufexplorer.git
@@ -10,9 +7,6 @@
 [submodule "vim/bundle/nerdtree"]
 	path = vim/pack/plugins/start/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
-[submodule "vim/bundle/YCM-Generator"]
-	path = vim/pack/plugins/start/YCM-Generator
-	url = https://github.com/rdnetto/YCM-Generator.git
 [submodule "tmux-themepack"]
 	path = tmux-themepack
 	url = https://github.com/jimeh/tmux-themepack.git
