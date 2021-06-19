@@ -1,32 +1,29 @@
 [submodule "vim/bundle/YouCompleteMe"]
-	path = vim/bundle/YouCompleteMe
+	path = vim/pack/plugins/start/YouCompleteMe
 	url = https://github.com/Valloric/YouCompleteMe.git
 [submodule "vim/bundle/bufexplorer"]
-	path = vim/bundle/bufexplorer
+	path = vim/pack/plugins/start/bufexplorer
 	url = https://github.com/jlanzarotta/bufexplorer.git
 [submodule "vim/bundle/ctrlp.vim"]
-	path = vim/bundle/ctrlp.vim
+	path = vim/pack/plugins/start/ctrlp.vim
 	url = https://github.com/kien/ctrlp.vim.git
 [submodule "vim/bundle/nerdtree"]
-	path = vim/bundle/nerdtree
+	path = vim/pack/plugins/start/nerdtree
 	url = https://github.com/scrooloose/nerdtree.git
-[submodule "vim/vim-pathogen"]
-	path = vim/vim-pathogen
-	url = https://github.com/tpope/vim-pathogen.git
 [submodule "vim/bundle/YCM-Generator"]
-	path = vim/bundle/YCM-Generator
+	path = vim/pack/plugins/start/YCM-Generator
 	url = https://github.com/rdnetto/YCM-Generator.git
 [submodule "tmux-themepack"]
 	path = tmux-themepack
 	url = https://github.com/jimeh/tmux-themepack.git
 [submodule "vim/bundle/vim-fugitive"]
-	path = vim/bundle/vim-fugitive
+	path = vim/pack/plugins/start/vim-fugitive
 	url = https://github.com/tpope/vim-fugitive.git
 [submodule "vim/bundle/ultisnips"]
-	path = vim/bundle/ultisnips
+	path = vim/pack/plugins/start/ultisnips
 	url = https://github.com/SirVer/ultisnips.git
 [submodule "vim/bundle/vim-snippets"]
-	path = vim/bundle/vim-snippets
+	path = vim/pack/plugins/start/vim-snippets
 	url = https://github.com/honza/vim-snippets.git
 [submodule "bash/fzf"]
 	path = bash/fzf
