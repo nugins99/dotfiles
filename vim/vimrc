@@ -1,10 +1,5 @@
-
 " We use a vim
-set nocompatible
-syntax on
-
 set incsearch   
-set backspace=2 
 set ruler
 set tw=0
 set showcmd	
@@ -42,30 +37,13 @@ map <C-F8> :call UpdateCscope()<CR>
 map <silent> <F12> :BufExplorer<CR>
 noremap <leader>be :BufExplorer<CR>
 map <M-F11> :NERDTree<CR>
+set autochdir
 
-
-if version >= 600
-    "Change directory when buffer is entered. 
-    autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif 
-endif
 
 filetype plugin on
 
 " Automatic code folding 
 autocmd BufReadPost *.hpp,*.hh,*.cpp,*.h,*.c,*.cc,*.java set fdm=syntax 
-
-"
-" AUTO-COMMANDS
-" for plain text
-"autocmd BufEnter *.txt,pico.* set noet nocindent tw=76
-"autocmd BufNewFile,BufRead *.doxygen setfiletype doxygen
-"autocmd BufEnter ?akefile* set noet
-"autocmd BufEnter *.cpp,*.h,*.c,*.cc,*.java set et sm cindent cinoptions=j1,(0 comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:#,:%,:XCOMM,n:>,fb:- formatoptions=croql,nowrap
-"autocmd BufEnter *.css set autoindent smartindent
-"autocmd BufEnter *.xml,*.xsd,*.html,*.htm set ts=2 sw=2 autoindent
-"autocmd BufEnter *.cpp,*.h,*.c,*.cc,*.java,*.html,*.htm*.xml,*.xsl,*.xslt,cvs* set tw=76
-"autocmd BufEnter *.db set tw=76 et ts=4
-
 
 set wildmenu
 
