@@ -1,0 +1,17 @@
+[credential]
+	helper = store
+[user]
+	name = Joe Davidson
+	email = nugins99@gmail.com
+[alias]
+	co = checkout
+	br = branch
+	ci = commit
+	st = status
+[pull]
+	rebase = false
+[filter "lfs"]
+	clean = git-lfs clean -- %f
+	smudge = git-lfs smudge -- %f
+	process = git-lfs filter-process
+	required = true

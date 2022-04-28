@@ -8,9 +8,7 @@ alias ls="ls --color"
 if  command -v minikube  &> /dev/null ; then
     if minikube status  > /dev/null ; then
 
-        echo "Loading minikube completion"
         eval $(minikube completion bash)
-        echo "Loading minikube docker-env"
         eval $(minikube docker-env)
 
         # Kubectl alias & completion

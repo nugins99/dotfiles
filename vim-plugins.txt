@@ -1,0 +1,9 @@
+https://github.com/jlanzarotta/bufexplorer.git
+https://github.com/kien/ctrlp.vim.git
+https://github.com/scrooloose/nerdtree.git
+https://github.com/SirVer/ultisnips.git
+https://github.com/vhdirk/vim-cmake.git
+https://github.com/tpope/vim-fugitive.git
+https://github.com/ycm-core/YouCompleteMe.git
+https://github.com/honza/vim-snippets.git
+https://github.com/dense-analysis/ale.git
