@@ -1,6 +1,9 @@
 " vim: foldmethod=marker:foldlevel=0
 
 
+set nobell
+set visualbell
+
 " Options {{{
 " Delete comment character when joining commented lines
 set formatoptions+=j
@@ -61,8 +64,8 @@ nnoremap <c-s-tab> gT
 nnoremap <c-tab> gt
 
 " }}}
- noremap <leader>ba :action BuildAll<CR>
- noremap <leader>bp :action BuildProject<CR>
+noremap <leader>ba :action BuildAll<CR>
+noremap <leader>bp :action BuildProject<CR>
 
 noremap <leader>ga :action GotoAction<CR>
 noremap <leader>gs :action GotoSymbol<cr>

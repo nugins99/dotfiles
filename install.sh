@@ -8,18 +8,22 @@ echo $P
 git submodule update --init --recursive
 
 # build clang
-pushd  $P/vim/bundle/YouCompleteMe
-    ./install.py --clang-completer
-popd
+YCM_DIR=$P/vim/pack/plugins/start/YouCompleteMe
+cd $YCM_DIR
+./install.py --clang-completer
+cd $P
 
 # ln uses VERSION_CONTROL to indicate how to create backup files.
 VERSION_CONTROL=numbered
 
 # create links
-#ln -s $P/inputrc ~/.inputrc
-#ln -s $P/vim ~/.vim
-#ln -s $P/tmux.conf ~/.tmux.conf
-#ln -s $P/ideavimrc ~/.ideavimrc
-#ln -s $P/tmux.conf ~/.tmux.conf
+ln -sf $P/inputrc ~/.inputrc
+ln -sf $P/vim ~/.vim
+ln -sf $P/tmux.conf ~/.tmux.conf
+ln -sf $P/ideavimrc ~/.ideavimrc
+ln -sf $P/tmux.conf ~/.tmux.conf
+ln -sf $P/gitconfig  ~/.gitconfig
 
 echo "Be sure to install tools under bash..."
+
+echo "source $P/bashrc" >> ~/.bashrc

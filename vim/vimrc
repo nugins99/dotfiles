@@ -1,38 +1,29 @@
-
-
-runtime autoload/pathogen.vim
-call pathogen#infect()
-
-
-" We use a vim
-set nocompatible
-syntax on
-
-set incsearch   
-set backspace=2 
+"set vim
 set ruler
-set tw=0
-set showcmd	
-set showmatch " show matching brackets 
+set textwidth=0
+set showcmd
+set showmatch " show matching brackets
 set cspc=4 " cscope - # directory components shown
 set nocsverb  "don't be noisy about adding cscope databases
-set nu
+set number
 set vb t_vb= "turn off that darn beep
+set autoindent
+set nowrap
+set smartcase
+set shiftwidth=4
+set tabstop=4
+set expandtab
 
-set hls
-
-set ts=4
-set sw=4
-set et
-
-
+" Serch related
+set hlsearch
+set incsearch
 
 " Next/Previus buffer
 map <F3> :bp<CR>
 map <F4> :bn<CR>
 
 
-" Quickfix 
+" Quickfix
 map <F5> :cp<CR>
 map <F6> :cc<CR>
 map <F7> :cn<CR>
@@ -42,49 +33,34 @@ map <C-F5> :lp<CR>
 map <C-F6> :lc<CR>
 map <C-F7> :lne<CR>
 
-map <F8> :make<CR> 
+let mapleader = ","
+
+map <F8> :make<CR>
 map <C-F8> :call UpdateCscope()<CR>
 map <silent> <F12> :BufExplorer<CR>
 noremap <leader>be :BufExplorer<CR>
 map <M-F11> :NERDTree<CR>
+set autochdir
 
-
-if version >= 600
-    "Change directory when buffer is entered. 
-    autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif 
-endif
 
 filetype plugin on
 
-" Automatic code folding 
-autocmd BufReadPost *.hpp,*.hh,*.cpp,*.h,*.c,*.cc,*.java set fdm=syntax 
-
-"
-" AUTO-COMMANDS
-" for plain text
-"autocmd BufEnter *.txt,pico.* set noet nocindent tw=76
-"autocmd BufNewFile,BufRead *.doxygen setfiletype doxygen
-"autocmd BufEnter ?akefile* set noet
-"autocmd BufEnter *.cpp,*.h,*.c,*.cc,*.java set et sm cindent cinoptions=j1,(0 comments=sO:*\ -,mO:*\ \ ,exO:*/,s1:/*,mb:*,ex:*/,:#,:%,:XCOMM,n:>,fb:- formatoptions=croql,nowrap
-"autocmd BufEnter *.css set autoindent smartindent
-"autocmd BufEnter *.xml,*.xsd,*.html,*.htm set ts=2 sw=2 autoindent
-"autocmd BufEnter *.cpp,*.h,*.c,*.cc,*.java,*.html,*.htm*.xml,*.xsl,*.xslt,cvs* set tw=76
-"autocmd BufEnter *.db set tw=76 et ts=4
-
+" Automatic code folding
+"autocmd BufReadPost *.hpp,*.hh,*.cpp,*.h,*.c,*.cc,*.java set fdm=syntax
 
 set wildmenu
 
-" New in version 7.0.3 - color columns 
-if version > 702 
+" New in version 7.0.3 - color columns
+if version > 702
 set colorcolumn=+1
 endif
 
-set textwidth=80
+set textwidth=101
 
 set wildignore+=*.o,*.ko,*.a,*.so
 set bg=dark
 
-" CTRL+movement keys switch windows 
+" CTRL+movement keys switch windows
 map <C-H> <C-W>h
 map <C-J> <C-W>j
 map <C-K> <C-W>k
@@ -100,8 +76,9 @@ let Tlist_Ctags_Cmd="/usr/bin/ctags"
 noremap  <leader>ev :vsplit $MYVIMRC<cr>
 noremap  <leader>sv :source $MYVIMRC<cr>
 
+set tags=./tags,/home/joe/CLionProjects/Warzone/tags,/home/joe/CLionProjects/tags
 
-"quote/bracket/paaren word 
+"quote/bracket/paaren word
 nnoremap ," viw<esc>a"<esc>hbi"<esc>lel
 nnoremap ,( viw<esc>a)<esc>hbi(<esc>lel
 nnoremap ,[ viw<esc>a]<esc>hbi[<esc>lel
@@ -117,27 +94,36 @@ autocmd FileType c nnoremap <buffer> <localleader>c I//
 autocmd FileType c++ nnoremap <buffer> <localleader>c I//
 autocmd FileType python     nnoremap <buffer> <localleader>c I#<esc>
 
+nnoremap <leader>= :YcmCompleter Format<CR>>
+nnoremap <C-=> :YcmCompleter Format<CR>>
+nnoremap <leader>gd :YcmCompleter GoToDeclaration<CR>>
+
+
 
 autocmd FileType javascript :iabbrev <buffer> iff if ( ) {}<left><left><left><left><left>
 autocmd FileType c :iabbrev <buffer> iff if ( ) {}<left><left><left><left><left>
 autocmd FileType c++ :iabbrev <buffer> iff if ( ) {}<left><left><left><left><left>
 autocmd FileType python     :iabbrev <buffer> iff if:<right>
 
+let cmake_use_smp = 1
+let g:ale_linters = { 'cpp': ['clangcheck', 'clangd', 'clangtidy', 'cppcheck', 'cpplint', 'cquery'] }
+"'cpp': ['cc', 'ccls', 'clangcheck', 'clangd', 'clangtidy', 'clazy', 'cppcheck', 'cpplint', 'cquery', 'flawfinder']
+
 
 " async complete {{{
 
 " Tab completion
-inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
-inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
-inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
+"inoremap <expr> <Tab> pumvisible() ? "\<C-n>" : "\<Tab>"
+"inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+"inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<cr>"
 
 " Force refresh completion
-imap <c-space> <Plug>(asyncomplete_force_refresh)
+"imap <c-space> <Plug>(asyncomplete_force_refresh)
 
 "let g:asyncomplete_auto_popup = 0
-let g:asyncomplete_remove_duplicates = 1
+"let g:asyncomplete_remove_duplicates = 1
 
 " }}}
 
 
-"set makeprg=make\ -C\ ~/Documents/dev/sdrw/build 
+"set makeprg=make\ -C\ ~/Documents/dev/sdrw/build
