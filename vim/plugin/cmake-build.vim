@@ -29,7 +29,7 @@ function! s:OnBuildExit(job_id, exit_status) abort
 endfunction
 
 
-function! s:StartBuild() abort
+function! s:CMakeStartBuild() abort
     let cmd = ['cmake', '--build', '--preset', g:cmake_active_preset,  '-j12']
 
     let s:build_output = []
@@ -41,4 +41,18 @@ function! s:StartBuild() abort
         \ })
 endfunction
 
-command! Build call s:StartBuild()
+function! s:CMakeStartTest() abort
+    let cmd = ['cmake', '--build', '--preset', g:cmake_active_preset,  '-j12', '--target', 'test']
+
+    let s:build_output = []
+
+    call job_start(cmd, {
+        \ 'out_cb': function('s:OnBuildStdout'),
+        \ 'err_cb': function('s:OnBuildStderr'),
+        \ 'exit_cb':   function('s:OnBuildExit'),
+        \ })
+endfunction
+
+
+command! CMakeBuild call s:CMakeStartBuild()
+command! CMakeTest call s:CMakeStartTest()
