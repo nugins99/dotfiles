@@ -14,18 +14,18 @@
 "   {'name': 'Open TODO',     'cmd': 'edit TODO.md'},
 " ]
 "
-" let g:show_run_commands_width  = 70
+" let g:show_run_commands_width  = 40
 " let g:show_run_commands_height = 20
 " let g:show_run_commands_keymap = '<Leader>p'
 "
 "
-let g:show_run_commands_list = [ 
-   \{'name': 'CMake: Preset', 'cmd': 'silent CMakeSelectPreset'}, 
-   \{'name': 'CMake: Configure', 'cmd': 'silent CMakeConfigure'}, 
+let g:show_run_commands_list = [
+   \{'name': 'CMake: Preset', 'cmd': 'CMakeSelectPreset'},
+   \{'name': 'CMake: Configure', 'cmd': 'silent CMakeConfigure'},
    \{'name': 'CMake: Build', 'cmd': 'CMakeBuild'},
-   \{'name': 'CMake: Test', 'cmd': 'CMakeTest'}, 
-   \{'name': 'Make', 'cmd': 'make'}, 
-   \{'name': 'Run tests',     'cmd': 'make test'}, 
+   \{'name': 'CMake: Test', 'cmd': 'CMakeTest'},
+   \{'name': 'Make', 'cmd': 'make'},
+   \{'name': 'Run tests',     'cmd': 'make test'},
    \{'name': 'Open TODO',     'cmd': 'edit ~/TODO.md'} ]
 
 
@@ -38,7 +38,7 @@ if !exists('g:show_run_commands_list')
   let g:show_run_commands_list = []
 endif
 if !exists('g:show_run_commands_width')
-  let g:show_run_commands_width = 70
+  let g:show_run_commands_width = 40
 endif
 if !exists('g:show_run_commands_height')
   let g:show_run_commands_height = 20
@@ -163,7 +163,7 @@ function! s:open_palette() abort
         \ 'col': 'cursor',
         \ 'minwidth': g:show_run_commands_width,
         \ 'minheight': g:show_run_commands_height,
-        \ 'border': [],
+        \ 'border': ['-'],
         \ 'padding': [0,1,0,1],
         \ 'mapping': 0,
         \ 'filter': function('s:on_key'),
@@ -179,5 +179,5 @@ if !empty(g:show_run_commands_keymap)
   execute 'nnoremap <silent> ' . g:show_run_commands_keymap . ' :ShowRunCommands<CR>'
 endif
 
-highlight Pmenu ctermbg=blue ctermfg=yellow guibg=#2E3440 
+highlight Pmenu ctermbg=darkblue ctermfg=yellow guibg=#2E3440
 highlight PmenuSel ctermfg=yellow ctermbg=darkred guifg=yellow guibg=#BF616A

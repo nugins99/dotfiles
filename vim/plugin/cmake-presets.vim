@@ -11,6 +11,50 @@ let g:loaded_cmake_presets = 1
 
 let g:cmake_active_preset = ''
 
+function! s:OnStdout(job_id, data) abort
+    echom "Stdout: " . a:data
+    call add(s:build_output, a:data)
+endfunction
+
+function! s:OnStderr(job_id, data) abort
+    echom "Stderr: " . a:data
+    " Treat stderr the same way
+    call add(s:build_output, string(a:data))
+endfunction
+
+function! s:OnExit(job_id, exit_status) abort
+    " Parse errors using &errorformat
+    call setqflist([], 'r', {
+        \ 'title': 'CMake Configure',
+        \ 'lines': s:build_output,
+        \ 'efm': &errorformat
+        \ })
+
+    " Open quickfix if any errors/warnings
+    if a:exit_status != 0
+        copen
+    else
+        echom "Configured :make for preset " . g:cmake_active_preset
+    endif
+
+    " Empty collected output for next run
+    let s:build_output = []
+endfunction
+
+function! s:StartJob(cmd, root) abort
+    let s:build_output = []
+    echom "Starting Job: "
+    echom a:cmd
+    echom "Root: " . a:root
+    call job_start(a:cmd, {
+        \ 'out_cb': function('s:OnStdout'),
+        \ 'err_cb': function('s:OnStderr'),
+        \ 'exit_cb':   function('s:OnExit'),
+        \ 'cwd': a:root
+        \ })
+endfunction
+
+
 " ----------------------------------------------------------------------------
 " Utility: run systemlist and trim whitespace
 function! s:systemlist_trim(cmd) abort
@@ -23,7 +67,6 @@ function! s:find_cmake_root(start_dir) abort
   let l:dir = a:start_dir
   while !empty(l:dir)
     if filereadable(l:dir . '/CMakeLists.txt')
-	  echo "Found CMakeLists.txt in " . l:dir
       return l:dir
     endif
     let l:parent = fnamemodify(l:dir, ':h')
@@ -112,22 +155,12 @@ function! s:configure_project() abort
   endif
   echom "Configuring with preset " . g:cmake_active_preset . "..."
   let l:root=s:find_cmake_root(getcwd())
-  let l:prevcwd=chdir(l:root)
-  let cmd = 'cmake --preset=' . shellescape(g:cmake_active_preset)
-  call system(cmd)
-  call chdir(l:prevcwd)
-
-  " Detect build directory
-  "let build_dir = s:get_build_dir(g:cmake_active_preset)
-  "echom "Build dir: " . build_dir
-  "if empty(build_dir)
-  "  let build_dir = 'build'
-  "endif
-
+  let l:cmd = ['cmake', '--preset=' . g:cmake_active_preset]
+  call s:StartJob(l:cmd, l:root)
+  
   " Integrate with :make
   let &makeprg = 'cd ' . l:root . ';' . 'cmake --build ' . 
         \ ' --preset=' . g:cmake_active_preset . ' --parallel'
-  echom "Configured :make for preset " . g:cmake_active_preset
 endfunction
 
 " ----------------------------------------------------------------------------
@@ -155,9 +188,8 @@ function! s:select_preset() abort
   endif
 
   let g:cmake_active_preset = names[choice - 1]
-  echo "Selected preset: " . g:cmake_active_preset
   call s:save_preset_to_file(g:cmake_active_preset)
-  call s:configure_project()
+  silent call s:configure_project()
 endfunction
 
 " ----------------------------------------------------------------------------

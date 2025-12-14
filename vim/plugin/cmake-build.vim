@@ -7,7 +7,6 @@ function! s:OnBuildStdout(job_id, data) abort
 endfunction
 
 function! s:OnBuildStderr(job_id, data) abort
-        
     echom "Stderr: " . a:data
     " Treat stderr the same way
     call add(s:build_output, string(a:data))
