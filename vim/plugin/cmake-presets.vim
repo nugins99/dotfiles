@@ -66,7 +66,7 @@ endfunction
 function! s:find_cmake_root(start_dir) abort
   let l:dir = a:start_dir
   while !empty(l:dir)
-    if filereadable(l:dir . '/CMakeLists.txt')
+    if filereadable(l:dir . '/CMakePresets.json') || filereadable(l:dir . '/CMakeUserPresets.json')
       return l:dir
     endif
     let l:parent = fnamemodify(l:dir, ':h')
@@ -208,10 +208,33 @@ augroup cmake_presets_autoload
 augroup END
 
 
+function s:update_ctags() abort
+    let l:root = s:find_cmake_root(getcwd())
+    if empty(l:root)
+        echoerr "Could not find CMakeLists.txt root!"
+        return
+    endif
+    let l:tagfile = l:root . '/.vim/tags'
+    let l:cmd = 'ctags -R -f ' . l:tagfile . ' --languages=C,C++ --exclude=.git --exclude=build ' . l:root
+    echom "Updating ctags..."
+    echom l:cmd
+    call system(l:cmd)
+
+    let l:tagfile = l:root . '/.vim/tags'
+    if empty(&tags)
+      let &tags = l:tagfile
+    else
+      let &tags = &tags . ',' . l:tagfile
+    endif
+
+    echom "ctags updated."
+endfunction
+
 
 " ----------------------------------------------------------------------------
 " User commands
 command! CMakeSelectPreset call s:select_preset()
 command! CMakeConfigure call s:configure_project()
+command! UpdateCtags call s:update_ctags()
 " ============================================================================
 

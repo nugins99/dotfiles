@@ -25,6 +25,7 @@ let g:show_run_commands_list = [
    \{'name': 'CMake: Build', 'cmd': 'CMakeBuild'},
    \{'name': 'CMake: Test', 'cmd': 'CMakeTest'},
    \{'name': 'Make', 'cmd': 'make'},
+   \{'name': 'Update ctags', 'cmd': 'UpdateCtags'},
    \{'name': 'Run tests',     'cmd': 'make test'},
    \{'name': 'Open TODO',     'cmd': 'edit ~/TODO.md'} ]
 
@@ -181,3 +182,21 @@ endif
 
 highlight Pmenu ctermbg=darkblue ctermfg=yellow guibg=#2E3440
 highlight PmenuSel ctermfg=yellow ctermbg=darkred guifg=yellow guibg=#BF616A
+
+"-- Variant — Blue Select (higher contrast, classic Solarized):
+highlight Pmenu ctermbg=236 ctermfg=249 guibg=#073642 guifg=#93a1a1
+highlight PmenuSel ctermbg=239 ctermfg=230 guibg=#586e75 guifg=#fdf6e3
+highlight PmenuSbar ctermbg=236 guibg=#073642
+highlight PmenuThumb ctermbg=239 guibg=#586e75
+
+" -- Variant — Blue Select (higher contrast, classic Solarized):
+"highlight Pmenu ctermbg=234 ctermfg=250 guibg=#002b36 guifg=#839496
+"highlight PmenuSel ctermbg=33 ctermfg=234 guibg=#268bd2 guifg=#002b36
+"highlight PmenuSbar ctermbg=234 guibg=#002b36
+"highlight PmenuThumb ctermbg=33 guibg=#268bd2
+
+" -- Variant — Yellow Accent (attention-focused):
+"highlight Pmenu ctermbg=234 ctermfg=250 guibg=#002b36 guifg=#839496
+"highlight PmenuSel ctermbg=3 ctermfg=234 guibg=#b58900 guifg=#002b36
+"highlight PmenuSbar ctermbg=234 guibg=#002b36
+"highlight PmenuThumb ctermbg=3 guibg=#b58900

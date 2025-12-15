@@ -1,6 +1,24 @@
 " ========== CMake async build for Vim 8.0 ==========
 let s:build_output = []
 
+" ----------------------------------------------------------------------------
+" Find the top-level directory containing CMakeLists.txt
+function! s:find_cmake_root(start_dir) abort
+  let l:dir = a:start_dir
+  while !empty(l:dir)
+    if filereadable(l:dir . '/CMakePresets.json') || filereadable(l:dir . '/CMakeUserPresets.json')
+      return l:dir
+    endif
+    let l:parent = fnamemodify(l:dir, ':h')
+    if l:parent ==# l:dir
+      break
+    endif
+    let l:dir = l:parent
+  endwhile
+  return ''
+endfunction
+
+
 function! s:OnBuildStdout(job_id, data) abort
     echom "Stdout: " . a:data
     call add(s:build_output, a:data)
@@ -37,6 +55,7 @@ function! s:CMakeStartBuild() abort
         \ 'out_cb': function('s:OnBuildStdout'),
         \ 'err_cb': function('s:OnBuildStderr'),
         \ 'exit_cb':   function('s:OnBuildExit'),
+        \ 'cwd': s:find_cmake_root(getcwd())
         \ })
 endfunction
 
